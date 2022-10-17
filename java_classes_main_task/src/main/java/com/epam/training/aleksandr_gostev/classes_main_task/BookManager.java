@@ -29,32 +29,17 @@ public class BookManager {
 
     public void searchBookByAuthor(String author) {
         System.out.println(author + " list of books:");
-
-        for (Book book: booksList) {
-            if (book.getAuthor().equals(author)) {
-                System.out.println(book);
-            }
-        }
+        Arrays.stream(booksList).filter(book -> book.getAuthor().equals(author)).forEach(System.out::println);
     }
 
     public void searchBookByPublisher(String publisher) {
         System.out.println(publisher + " list of books:");
-
-        for (Book book: booksList) {
-            if (book.getPublisher().equals(publisher)) {
-                System.out.println(book);
-            }
-        }
+        Arrays.stream(booksList).filter(book -> book.getPublisher().equals(publisher)).forEach(System.out::println);
     }
 
     public void searchBookByYear(int year) {
         System.out.println(year + " list of books:");
-
-        for (Book book: booksList) {
-            if (book.getYear() > year) {
-                System.out.println(book);
-            }
-        }
+        Arrays.stream(booksList).filter(book -> book.getYear() > year).forEach(System.out::println);
     }
 
     public void printBooks() {
