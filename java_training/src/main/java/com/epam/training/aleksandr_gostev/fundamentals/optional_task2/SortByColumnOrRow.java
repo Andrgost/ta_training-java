@@ -1,5 +1,6 @@
 package com.epam.training.aleksandr_gostev.fundamentals.optional_task2;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -28,12 +29,10 @@ public class SortByColumnOrRow {
 
         //Print original matrix
         System.out.println("\nOriginal matrix is:");
-        for (int[] row : matrix) {
-            for (int column : row) {
-                System.out.print(column + " ");
-            }
+        Arrays.stream(matrix).forEach(row -> {
+            Arrays.stream(row).mapToObj(column -> column + " ").forEach(System.out::print);
             System.out.println();
-        }
+        });
 
         //Enter k element index
         while (k < 0 || k >= matrix.length) {

@@ -1,5 +1,6 @@
 package com.epam.training.aleksandr_gostev.fundamentals.main_task;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -20,15 +21,11 @@ public class RandomNumbers {
 
         //Print numbers in one line
         System.out.println("Numbers in one line:");
-        for (int item: numbers) {
-            System.out.print(item + " ");
-        }
+        Arrays.stream(numbers).mapToObj(item -> item + " ").forEach(System.out::print);
 
         //Print numbers each from new line
         System.out.println("\nNumbers in new lines:");
-        for (int item: numbers) {
-            System.out.println(item);
-        }
+        Arrays.stream(numbers).forEach(System.out::println);
 
         scanner.close();
     }
