@@ -1,4 +1,4 @@
-package Custom_exceptions;
+package com.epam.training.aleksandr_gostev.main_task.Custom_exceptions;
 
 public class GroupException extends Exception {
 

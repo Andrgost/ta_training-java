@@ -1,7 +1,9 @@
-import Custom_exceptions.FacultyException;
-import Custom_exceptions.MarkException;
-import Custom_exceptions.StudentException;
-import Custom_exceptions.SubjectException;
+package com.epam.training.aleksandr_gostev.main_task;
+
+import com.epam.training.aleksandr_gostev.main_task.Custom_exceptions.FacultyException;
+import com.epam.training.aleksandr_gostev.main_task.Custom_exceptions.MarkException;
+import com.epam.training.aleksandr_gostev.main_task.Custom_exceptions.StudentException;
+import com.epam.training.aleksandr_gostev.main_task.Custom_exceptions.SubjectException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -69,10 +71,10 @@ public class Statistic {
 
         /*
         //Option with "for" loops
-        for (Group facultyGroup: faculty.getFacultyGroups()) {
-            if (facultyGroup.getGroupStudents().isEmpty()) throw new StudentException("Student is absent");
+        for (main_task.Group facultyGroup: faculty.getFacultyGroups()) {
+            if (facultyGroup.getGroupStudents().isEmpty()) throw new StudentException("main_task.Student is absent");
             if (facultyGroup.getGroupNumber() == group.getGroupNumber()) {
-                for (Student groupStudent: facultyGroup.getGroupStudents()) {
+                for (main_task.Student groupStudent: facultyGroup.getGroupStudents()) {
                     for (Map.Entry<String, Integer> entry: groupStudent.getSubjectMarks().entrySet()) {
                         if (entry.getKey().equals(subject)) {
                             sum.updateAndGet(v -> new Double((double) (v + entry.getValue())));
@@ -111,10 +113,10 @@ public class Statistic {
 
         /*
         for (Faculty faculty: university.getFaculties()) {
-            for (Group group: faculty.getGroups()) {
-                if (group.getStudents().isEmpty()) throw new FacultyException("Student is absent");
+            for (main_task.Group group: faculty.getGroups()) {
+                if (group.getStudents().isEmpty()) throw new FacultyException("main_task.Student is absent");
 
-                for (Student groupStudent: group.getStudents()) {
+                for (main_task.Student groupStudent: group.getStudents()) {
                     for (Map.Entry<String, Integer> entry: groupStudent.getSubjectMarks().entrySet()) {
                         if (entry.getKey().equals(subject)) {
                             sum += entry.getValue();

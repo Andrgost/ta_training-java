@@ -1,3 +1,5 @@
+package com.epam.training.aleksandr_gostev.main_task;
+
 import java.util.ArrayList;
 
 public class University {
