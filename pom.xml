@@ -19,6 +19,7 @@
         <module>java_classes_main_task</module>
         <module>java_training</module>
         <module>java_collections_main_task</module>
+        <module>java_exceptions_main_task</module>
     </modules>
 
     <dependencies>
