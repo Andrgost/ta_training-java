@@ -1,6 +1,7 @@
 package com.epam.training.aleksandr_gostev.main_task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Faculty {
 
@@ -16,7 +17,7 @@ public class Faculty {
         return facultyName;
     }
 
-    public ArrayList<Group> getGroups() {
+    public List<Group> getGroups() {
         return groups;
     }
 

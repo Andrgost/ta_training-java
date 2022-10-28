@@ -45,15 +45,6 @@ public class Statistic {
     private static double studentAverageMark(Student student) throws MarkException, SubjectException {
         if (student.getSubjectMarks().isEmpty()) throw new SubjectException("Subject is absent");
 
-        /*
-        for (Map.Entry<String, Integer> entry: student.getSubjectMarks().entrySet()) {
-            if (entry.getValue() < 0 || entry.getValue() > 10) throw new MarkException("Mark is not valid.", entry.getValue());
-
-            sum += entry.getValue();
-            count++;
-        }
-        */
-
         List<Integer> list = student.getSubjectMarks().values().stream()
                 .filter(mark -> mark < 0 || mark > 10)
                 .toList();
@@ -61,45 +52,23 @@ public class Statistic {
         if (!list.isEmpty()) throw new MarkException(String.format("Marks are found: %s", list));
 
         return student.getSubjectMarks().values().stream()
-                .mapToInt((x) -> x).average().getAsDouble();
+                .mapToInt(x -> x).average().getAsDouble();
     }
 
-    private static double subjectAverageMarkByGroupAndFaculty(String subject, Group group, Faculty faculty) //{
-            throws StudentException {
+    private static double subjectAverageMarkByGroupAndFaculty(String subject, Group group, Faculty faculty) throws StudentException {
         AtomicReference<Double> sum = new AtomicReference<>(0.0);
         AtomicInteger count = new AtomicInteger();
-
-        /*
-        //Option with "for" loops
-        for (main_task.Group facultyGroup: faculty.getFacultyGroups()) {
-            if (facultyGroup.getGroupStudents().isEmpty()) throw new StudentException("main_task.Student is absent");
-            if (facultyGroup.getGroupNumber() == group.getGroupNumber()) {
-                for (main_task.Student groupStudent: facultyGroup.getGroupStudents()) {
-                    for (Map.Entry<String, Integer> entry: groupStudent.getSubjectMarks().entrySet()) {
-                        if (entry.getKey().equals(subject)) {
-                            sum.updateAndGet(v -> new Double((double) (v + entry.getValue())));
-                            count.getAndIncrement();
-                        }
-                    }
-                }
-            }
-        }
-        */
 
         faculty.getGroups().stream()
                 .filter(gr -> gr.getGroupNumber() == group.getGroupNumber())
                 .map(Group::getStudents)
-                .forEach(ar -> {
-                    ar.forEach(student -> {
-                        student.getSubjectMarks()
-                                .forEach((subj, mark) -> {
-                                    if (subj.equals(subject)) {
-                                        sum.updateAndGet(v -> v + mark);
-                                        count.getAndIncrement();
-                                    }
-                                });
-                    });
-                });
+                .forEach(students -> students
+                        .forEach(student -> student.getSubjectMarks().entrySet().stream()
+                                .filter(subj -> subj.getKey().equals(subject))
+                                .forEach(subj -> {
+                                    sum.updateAndGet(v -> v + subj.getValue());
+                                    count.getAndIncrement();
+                                })));
 
         return sum.get() / count.get();
     }
@@ -111,32 +80,16 @@ public class Statistic {
         AtomicReference<Double> sum = new AtomicReference<>(0.0);
         AtomicInteger count = new AtomicInteger();
 
-        /*
-        for (Faculty faculty: university.getFaculties()) {
-            for (main_task.Group group: faculty.getGroups()) {
-                if (group.getStudents().isEmpty()) throw new FacultyException("main_task.Student is absent");
-
-                for (main_task.Student groupStudent: group.getStudents()) {
-                    for (Map.Entry<String, Integer> entry: groupStudent.getSubjectMarks().entrySet()) {
-                        if (entry.getKey().equals(subject)) {
-                            sum += entry.getValue();
-                            count++;
-                        }
-                    }
-                }
-            }
-        }
-        */
-
-        university.getFaculties().forEach(faculty -> faculty.getGroups()
-                .forEach(group -> group.getStudents()
-                        .forEach(student -> student.getSubjectMarks()
-                                .forEach((subj, mark) -> {
-                                    if (subj.equals(subject)) {
-                                        sum.updateAndGet(v -> v + mark);
-                                        count.getAndIncrement();
-                                    }
-                                }))));
+        university.getFaculties().stream()
+                .map(Faculty::getGroups)
+                .forEach(groups -> groups
+                        .forEach(group -> group.getStudents()
+                                .forEach(student -> student.getSubjectMarks().entrySet().stream()
+                                        .filter(subj -> subj.getKey().equals(subject))
+                                        .forEach(subj -> {
+                                            sum.updateAndGet(v -> v + subj.getValue());
+                                            count.getAndIncrement();
+                                        }))));
 
         return sum.get() / count.get();
     }
