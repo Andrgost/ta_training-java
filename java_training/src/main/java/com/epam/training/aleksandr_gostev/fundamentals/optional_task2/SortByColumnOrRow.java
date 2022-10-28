@@ -54,12 +54,10 @@ public class SortByColumnOrRow {
 
         //Print matrix sorted by k-column values
         System.out.println("\nResult matrix sorted by " + k + "-column values is:");
-        for (int[] row : matrixSortedRows) {
-            for (int column : row) {
-                System.out.print(column + " ");
-            }
+        Arrays.stream(matrixSortedRows).forEach(row -> {
+            Arrays.stream(row).mapToObj(column -> column + " ").forEach(System.out::print);
             System.out.println();
-        }
+        });
 
         //Sort matrix columns by k-row values in ascending
         int[][] matrixSortedColumns = matrix.clone();
@@ -67,7 +65,7 @@ public class SortByColumnOrRow {
             for (int column = 0; column < matrixSortedColumns[k].length - 1; column++) {
                 if (matrixSortedColumns[k][column] > matrixSortedColumns[k][column + 1]) {
                     for (int row = 0; row < matrixSortedColumns.length; row++) {
-                            int tempNumber = matrixSortedColumns[row][column + 1];
+                        int tempNumber = matrixSortedColumns[row][column + 1];
                             matrixSortedColumns[row][column + 1] = matrixSortedColumns[row][column];
                             matrixSortedColumns[row][column] = tempNumber;
                     }
