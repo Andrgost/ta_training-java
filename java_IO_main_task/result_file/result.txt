@@ -1,0 +1,9 @@
+|-----folder_1
+|     file_1.txt
+|     file_2.txt
+|     |-----folder_1_1
+|     file_11.txt
+|-----folder_2
+|     file_1.txt
+|-----folder_3
+|     file_1.txt
